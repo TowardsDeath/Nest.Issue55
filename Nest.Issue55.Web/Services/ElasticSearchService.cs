@@ -16,6 +16,18 @@ namespace Nest.Issue55.Web.Services
             this.ElasticSearch = new ElasticClient( connection );
         }
 
+        public void CreateIndex()
+        {
+            if (this.ElasticSearch.IndexExists("products").Exists)
+                this.ElasticSearch.DeleteIndex("products");
+
+            this.ElasticSearch.CreateIndex("products", new IndexSettings 
+            {
+                NumberOfReplicas = 1,
+                NumberOfShards = 5
+            });
+        }
+
         public void IndexProduct( ElasticSearchProduct p )
         {
             this.ElasticSearch.Map<ElasticSearchProduct>();
