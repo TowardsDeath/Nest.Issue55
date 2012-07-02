@@ -1,0 +1,47 @@
+﻿@model Nest.Issue55.Web.Models.Result
+           
+<div class="post">@TempData[ "Post" ]</div>
+
+<h1>Testcase for not_analyzed</h1>
+
+<form action="@Url.Action( "addproduct" )" method="post">
+    <fieldset>
+        <legend>Press the button to add a product to ElasticSearch</legend>
+        <input type="submit" value="Add">
+    </fieldset>
+</form>
+
+<h2>Search results</h2>
+
+@if( Model.FieldFacets.Count > 0 )
+{
+    <h3>Facets</h3>
+    <ul>
+        @foreach( var facet in Model.FieldFacets )
+        {
+            <li>@facet.Key
+            <ul>
+                @foreach( var value in facet.Value )
+                {
+                    <li>@value.Key (@value.Value)</li>
+                }
+            </ul>
+            </li>
+        }
+    </ul>
+}
+
+<h3>Products</h3>
+@if( Model.Products.Count() == 0 )
+{
+    <p>No products found.</p>
+}
+else
+{
+    foreach( var p in Model.Products )
+    {
+        <h4>ID: @p.Id</h4>
+        <p>Format: @p.Format</p>
+        <hr/>
+    }
+}
