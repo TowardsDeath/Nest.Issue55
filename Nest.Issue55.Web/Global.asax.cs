@@ -1,5 +1,6 @@
 ﻿using System.Web.Mvc;
 using System.Web.Routing;
+using Nest.Issue55.Web.Services;
 
 namespace Nest.Issue55.Web
 {
@@ -24,6 +25,7 @@ namespace Nest.Issue55.Web
         protected void Application_Start()
         {
             RegisterRoutes( RouteTable.Routes );
+            new ElasticSearchService().CreateIndex();
         }
     }
 }
